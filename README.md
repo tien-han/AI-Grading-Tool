@@ -1,4 +1,4 @@
-# AI-Grading-Tool
+# AI-Grading-Tool :robot:📝
 This should be a living document! If you encounter problems or missing instructions, please add them to this document in a PR.
 ## Table of Contents
 1. [About the Project](#about-the-project)
