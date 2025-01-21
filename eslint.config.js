@@ -1,5 +1,5 @@
-import js from '@eslint/js'
 import globals from 'globals'
+import js from '@eslint/js'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
@@ -34,6 +34,13 @@ export default [
         { allowConstantExport: true },
       ],
       "indent": ["error", 2],
+      "sort-imports": ["error", {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "allowSeparatedGroups": false
+      }]
     },
   },
 ]
