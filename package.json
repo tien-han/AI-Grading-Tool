@@ -10,12 +10,11 @@
     "preview": "vite preview"
   },
   "authors": [
-      "Giovan Cervantes",
-      "Dhiyaa Nazim",
-      "Lois Lanctot",
-      "Tien Han"
-  ]
-  ,
+    "Giovan Cervantes",
+    "Dhiyaa Nazim",
+    "Lois Lanctot",
+    "Tien Han"
+  ],
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
