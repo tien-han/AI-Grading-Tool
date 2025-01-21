@@ -1,23 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { isCsv } from './validation/file_parser.js'
+import { isCsv, parseStudentQuizzes } from './validation/file_parser.js'
+import { useState } from 'react'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  // Manage the state of the selected file, which starts as "null" since a user has not uploaded anything
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  // When a file is selected, check that it's a CSV and update the state
+  const onFileSelect = (event) => {
+    const uploadedFile = event.target.files[0]
+
+    // If the file extension is CSV, update the state to hold this file
+    if (isCsv(uploadedFile.name)) {
+      setSelectedFile({
+        selectedFile: uploadedFile
+      })
+    } else {
+      // If the file extension is not CSV, don't continue
+      // TO-DO @Dhiyaa & @Lois
+      alert("File extension is not CSV")
+    }
+  }
+
+  //When a file is uploaded (submit is clicked), perform validation
+  const onFileSubmit = () => {
+    parseStudentQuizzes(selectedFile.selectedFile)
+  }
+
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>AI Grading Tool</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -26,9 +40,10 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div>
+        <input type="file" onChange={onFileSelect} />
+        <button onClick={onFileSubmit}>Upload!</button>
+      </div>
     </>
   )
 }
