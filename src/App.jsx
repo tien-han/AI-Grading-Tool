@@ -1,5 +1,5 @@
 import './App.css'
-import { isCsv, parseStudentQuizzes } from './validation/file_parser.js'
+import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from './validation/file_parser.js'
 import { useState } from 'react'
 
 function App() {
@@ -24,6 +24,23 @@ function App() {
     }
   }
 
+  // Used to test rubric upload and parsing
+  const onRubricSelect = (event) => {
+    const uploadedFile = event.target.files[0]
+
+    // Prints results of the parsing to the console
+    async function testParser(file) {
+      const data = await parseRubric(file);
+      console.log(data);
+    }
+
+    if (isTabDelimited(uploadedFile.name)) {
+      testParser(uploadedFile);
+    } else {
+      alert("File extension is not .txt or .tsv")
+    }
+  }
+
   //When a file is uploaded (submit is clicked), perform validation
   const onFileSubmit = () => {
     parseStudentQuizzes(selectedFile.selectedFile)
@@ -43,6 +60,10 @@ function App() {
       <div>
         <input type="file" onChange={onFileSelect} />
         <button onClick={onFileSubmit}>Upload!</button>
+      </div>
+      <div>
+        <input type="file" onChange={onRubricSelect} />
+        <button onClick={onFileSubmit}>Upload Rubric</button>
       </div>
     </>
   )

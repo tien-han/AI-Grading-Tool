@@ -1,3 +1,5 @@
+import Papa from 'papaparse';
+
 /**
  * Checks a file for the ".csv" extension.
  * 
@@ -13,13 +15,35 @@ function isCsv(fileName) {
 }
 
 /**
- * Parses through input rubric, breaking
- * it down into editable pieces.
+ * Checks a file for the ".txt" or ".tsv" extension.
  * 
- * @param {string} filePath path to file containing rubric.
+ * @param {string} fileName name of the file to be checked.
+ * @returns boolean: true if ".txt" or ".tsv", false otherwise.
  */
-function parseRubric(filePath) {
-  // Needs to break down the rubric into editable pieces
+function isTabDelimited(fileName) {
+  let extension = fileName.split('.').pop();
+  if (extension !== "txt" && extension !== "tsv") {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Parses through input rubric and returns an array.
+ * 
+ * @param {File} file File object containing rubric file.
+ */
+function parseRubric(file) {
+  return new Promise((resolve, reject) => {
+    Papa.parse(file, {
+      complete: function(results) {
+        resolve(results.data);
+      },
+      error: function(error) {
+        reject(error);
+      }
+    });
+  });
 }
 
 /**
@@ -46,5 +70,7 @@ function parseStudentQuizzes(file) {
 
 export {
   isCsv,
+  isTabDelimited,
+  parseRubric,
   parseStudentQuizzes
 };

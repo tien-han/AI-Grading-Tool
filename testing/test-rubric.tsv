@@ -1,0 +1,4 @@
+Criteria	Exceeds	Meets	Below
+Code Functionality	Code meets all specified requirements and runs without errors.	Code meets most requirements but has minor issues or bugs.	Code meets some requirements but contains significant bugs.
+Code Efficiency	Code is highly efficient, with optimal time and space complexity.	Code is mostly efficient, with some minor inefficiencies.	Code has noticeable inefficiencies but still functions adequately.
+Documentation and Testing	Thorough documentation and comprehensive testing included.	Adequate documentation and testing provided.	Minimal documentation and testing.
