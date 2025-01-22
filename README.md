@@ -6,12 +6,16 @@ This should be a living document! If you encounter problems or missing instructi
 3. [Style Guide](#style-guide)
 ## About the Project
 This repository holds the code written by the team TLDC (Tien Han, Lois Lanctot, Dhiyaa Nazim, Giovan Cervantes) for Green River College's course SDEV 485 (Software Development Capstone 1) for Winter 2025.
-The tech stack in this repository is comprised of:
+
+__Tech stack__:
 - [Node.js](https://nodejs.org/en): frontend (JavaScript, HTML, CSS)
 - [Express.js](https://expressjs.com/): API routes
-- [Vite](https://vite.dev/): frontend build tool
 - [React.js](https://react.dev/): UI components
-- [Python](https://www.python.org/): file parsing (scripting)
+
+__Tools__:
+- [Vite](https://vite.dev/): frontend build tool
+- [papaparse](https://www.papaparse.com/): javascript parsing package for csv files
+  
 ## Local Development
 ### Prerequisites
 1. Clone the project repository locally.
