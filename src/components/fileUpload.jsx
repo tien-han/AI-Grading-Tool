@@ -1,5 +1,5 @@
 import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from "../validation/file_parser.js";
-import { propTypes, useState } from "react";
+import { useState } from "react";
 
 export default function UploadButton(props) {
   // Default props
@@ -31,11 +31,6 @@ export default function UploadButton(props) {
       
     }
   };
-
-  UploadButton.propTypes = {
-    uploadMessage: propTypes.string.isRequired,
-    fileType: propTypes.string.isRequired
-  }
 
   // When a file is uploaded (submit is clicked), perform validation
   const onFileSubmit = () => {
