@@ -1,21 +1,17 @@
-import './App.css'
-import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from './validation/file_parser.js'
-import { useState } from 'react'
-import UploadButton from './components/fileUpload.jsx'
+import "./App.css";
+import UploadButton from "./components/fileUpload.jsx";
 
 function App() {
-  
-
   return (
     <>
       <div id="right">
         <h1>AI Grading Tool</h1>
-        <UploadButton onChangeType={'onRubricSelect'} uploadMessage={'Upload Rubric!'}></UploadButton>
-        <UploadButton onChangeType={'onFileSelect'}></UploadButton>
+        <UploadButton fileType="rubric" uploadMessage="Upload Rubric!" />
+        <UploadButton fileType="csv" uploadMessage="Upload CSV!" />
       </div>
       <div id="left"></div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
