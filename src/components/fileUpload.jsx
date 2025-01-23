@@ -33,15 +33,9 @@ export default function UploadButton(props) {
     }
   };
 
-  // When a file is uploaded (submit is clicked), perform validation
-  const onFileSubmit = () => {
-    //todo: add the button to submit both files to the AI
-  };
-
   return (
     <div>
       <input type="file" onChange={onFileSelect} />
-      <button onClick={onFileSubmit}>{uploadMessage}</button>
     </div>
   );
 }
