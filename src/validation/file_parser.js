@@ -1,5 +1,5 @@
-import {  QuestionResponse, StudentQuiz } from './classes.js';
-import Papa from 'papaparse';
+import {  QuestionResponse, StudentQuiz } from './classes.js'
+import Papa from 'papaparse'
 
 /**
  * Checks a file for the ".csv" extension.
@@ -8,11 +8,11 @@ import Papa from 'papaparse';
  * @returns boolean: true if ".csv", false otherwise.
  */
 function isCsv(fileName) {
-  let extension = fileName.split('.').pop();
+  let extension = fileName.split('.').pop()
   if (extension !== 'csv') {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 /**
@@ -22,11 +22,11 @@ function isCsv(fileName) {
  * @returns boolean: true if ".txt" or ".tsv", false otherwise.
  */
 function isTabDelimited(fileName) {
-  let extension = fileName.split('.').pop();
+  let extension = fileName.split('.').pop()
   if (extension !== "txt" && extension !== "tsv") {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 /**
@@ -38,13 +38,13 @@ function parseRubric(file) {
   return new Promise((resolve, reject) => {
     Papa.parse(file, {
       complete: function(results) {
-        resolve(results.data);
+        resolve(results.data)
       },
       error: function(error) {
-        reject(error);
+        reject(error)
       }
-    });
-  });
+    })
+  })
 }
 
 /**
@@ -56,16 +56,17 @@ function parseRubric(file) {
  */
 function parseStudentQuizzes(file) {
   // Create document object/list
-  let quiz = [];
+  let quiz = []
 
   Papa.parse(file, {
     header: true,
+    skipEmptyLines: true,
     complete: function(results) {
       // Filter the headers so that we only get the quiz questions
-      const headers = [];
+      const headers = []
       for (const header of results.meta['fields']) {
         if (header.includes(':')) {
-          headers.push(header);
+          headers.push(header)
         }
       }
 
@@ -75,19 +76,22 @@ function parseStudentQuizzes(file) {
       // create a Question Response object to send to the model.
       for (const row of allRows) {
         // Collect all student quiz responses
-        let studentResponses = [];
+        let studentResponses = []
 
         // Since a row is an object, we can use the headers as keys to get the
         // student's response.
         for (const header of headers) {
           const quizResponse = new QuestionResponse(header, row[header])
-          studentResponses.push(quizResponse);
+          studentResponses.push(quizResponse)
         }
 
         studentResponses = new StudentQuiz(studentResponses)
         quiz.push(studentResponses)
       }
     },
+    error: function(error) { //Executed after file parsing is completed
+      console.log("Hit an error while parsing: " + error)
+    }
   })
 
   return JSON.stringify(quiz)
@@ -98,4 +102,4 @@ export {
   isTabDelimited,
   parseRubric,
   parseStudentQuizzes
-};
+}
