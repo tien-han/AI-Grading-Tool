@@ -1,3 +1,4 @@
+import {  QuestionResponse, StudentQuiz } from './classes.js';
 import Papa from 'papaparse';
 
 /**
@@ -8,7 +9,7 @@ import Papa from 'papaparse';
  */
 function isCsv(fileName) {
   let extension = fileName.split('.').pop();
-  if (extension !== "csv") {
+  if (extension !== 'csv') {
     return false;
   }
   return true;
@@ -54,18 +55,42 @@ function parseRubric(file) {
  * @returns {JSON} a JSON file that can be displayed on the front end.
  */
 function parseStudentQuizzes(file) {
-  console.log(file)
   // Create document object/list
-  // Create a student quiz response object
-  // Read through each line in the document
-  const fileReader = new FileReader();
+  let quiz = [];
 
-  fileReader.readAsText(file);
+  Papa.parse(file, {
+    header: true,
+    complete: function(results) {
+      // Filter the headers so that we only get the quiz questions
+      const headers = [];
+      for (const header of results.meta['fields']) {
+        if (header.includes(':')) {
+          headers.push(header);
+        }
+      }
 
-  // Pull out headers
-  // For each row, instantiate and hydrate a student quize response object
+      const allRows = results.data
 
-  return
+      // For each row, if a column is a student's response to a question,
+      // create a Question Response object to send to the model.
+      for (const row of allRows) {
+        // Collect all student quiz responses
+        let studentResponses = [];
+
+        // Since a row is an object, we can use the headers as keys to get the
+        // student's response.
+        for (const header of headers) {
+          const quizResponse = new QuestionResponse(header, row[header])
+          studentResponses.push(quizResponse);
+        }
+
+        studentResponses = new StudentQuiz(studentResponses)
+        quiz.push(studentResponses)
+      }
+    },
+  })
+
+  return JSON.stringify(quiz)
 }
 
 export {
