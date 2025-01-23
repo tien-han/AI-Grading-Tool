@@ -1,5 +1,5 @@
-import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from "../validation/file_parser.js";
 import { useState } from "react";
+import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from "../validation/file_parser.js";
 
 export default function UploadButton(props) {
   // Default props
@@ -32,7 +32,7 @@ export default function UploadButton(props) {
     }
   };
 
-  // When a file is uploaded (submit is clicked), perform validation
+// When a file is uploaded (submit is clicked), perform validation
   const onFileSubmit = () => {
     if (fileType === "csv") {
       parseStudentQuizzes(selectedFile); 
