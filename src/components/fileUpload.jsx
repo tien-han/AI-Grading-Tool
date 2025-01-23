@@ -14,13 +14,14 @@ export default function UploadButton(props) {
 
     // If the file extension is CSV, update the state to hold this file
     if (fileType === "csv" && isCsv(uploadedFile.name)) {
-      setSelectedFile(uploadedFile); 
-      console.log("CSV file selected:", uploadedFile.name);
+      const quizData = await parseStudentQuizzes(uploadedFile); 
+      console.log(quizData);
+
     } 
     else if (fileType === "rubric" && isTabDelimited(uploadedFile.name)) {
       // Prints results of the parsing to the console
-      const data = await parseRubric(uploadedFile);
-      console.log(data);
+      const rubricData = await parseRubric(uploadedFile);
+      console.log(rubricData);
     } 
     else {
       if (fileType === "csv") {
@@ -34,9 +35,7 @@ export default function UploadButton(props) {
 
   // When a file is uploaded (submit is clicked), perform validation
   const onFileSubmit = () => {
-    if (fileType === "csv") {
-      parseStudentQuizzes(selectedFile); 
-    } 
+    //todo: add the button to submit both files to the AI
   };
 
   return (
