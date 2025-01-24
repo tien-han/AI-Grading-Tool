@@ -8,13 +8,16 @@ This should be a living document! If you encounter problems or missing instructi
 This repository holds the code written by the team TLDC (Tien Han, Lois Lanctot, Dhiyaa Nazim, Giovan Cervantes) for Green River College's course SDEV 485 (Software Development Capstone 1) for Winter 2025.
 
 __Tech stack__:
-- [Node.js](https://nodejs.org/en): frontend (JavaScript, HTML, CSS)
-- [Express.js](https://expressjs.com/): API routes
-- [React.js](https://react.dev/): UI components
-
-__Tools__:
-- [Vite](https://vite.dev/): frontend build tool
-- [papaparse](https://www.papaparse.com/): javascript parsing package for csv files
+- [Node.js](https://nodejs.org/en): Backend (JS)
+  - [Express.js](https://expressjs.com/): API routes
+  - [nodemon](https://www.npmjs.com/package/nodemon): Auto restart node app
+  - [dotenv](https://www.npmjs.com/package/dotenv): Load environment variables
+  - [cors](https://www.npmjs.com/package/cors): Provides middleware
+  - [groq-sdk](https://www.npmjs.com/package/groq-sdk): Access to Groq API
+    
+- [React.js](https://react.dev/): Frontend (UI components, JS, HTML, CSS)
+  - [Vite](https://vite.dev/): frontend build tool
+  - [papaparse](https://www.papaparse.com/): javascript parsing package for csv files
   
 ## Local Development
 ### Prerequisites
