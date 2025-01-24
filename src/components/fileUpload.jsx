@@ -34,8 +34,11 @@ export default function UploadButton(props) {
   };
 
   return (
-    <div>
-      <input type="file" onChange={onFileSelect} />
+    <div className="upload-container">
+      {uploadMessage}
+      <input type="file" id="uploadBtn" onChange={onFileSelect} />
+      {/* <label htmlFor="uploadBtn">Upload</label>  */}
+      {/* For some reason ^^^ <label> will not let me upload a CSV */}
     </div>
   );
 }
