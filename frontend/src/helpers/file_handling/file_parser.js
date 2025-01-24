@@ -1,4 +1,4 @@
-import {  QuestionResponse, StudentQuiz } from './classes.js'
+import {  QuestionResponse, StudentQuiz } from '../classes.js'
 import Papa from 'papaparse'
 
 /**

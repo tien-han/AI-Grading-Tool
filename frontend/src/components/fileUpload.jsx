@@ -1,4 +1,4 @@
-import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from "../validation/file_parser.js";
+import { isCsv, isTabDelimited, parseRubric, parseStudentQuizzes } from "../helpers/file_handling/file_parser.js";
 import { useState } from "react";
 
 export default function UploadButton(props) {
