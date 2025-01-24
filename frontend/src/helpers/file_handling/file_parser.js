@@ -57,44 +57,44 @@ function parseRubric(file) {
 function parseStudentQuizzes(file) {
   // Create document object/list
   let quiz = []
-
-  Papa.parse(file, {
-    header: true,
-    skipEmptyLines: true,
-    complete: function(results) {
-      // Filter the headers so that we only get the quiz questions
-      const headers = []
-      for (const header of results.meta['fields']) {
-        if (header.includes(':')) {
-          headers.push(header)
-        }
-      }
-
-      const allRows = results.data
-
-      // For each row, if a column is a student's response to a question,
-      // create a Question Response object to send to the model.
-      for (const row of allRows) {
-        // Collect all student quiz responses
-        let studentResponses = []
-
-        // Since a row is an object, we can use the headers as keys to get the
-        // student's response.
-        for (const header of headers) {
-          const quizResponse = new QuestionResponse(header, row[header])
-          studentResponses.push(quizResponse)
+  return new Promise((resolve, reject) => {
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        // Filter the headers so that we only get the quiz questions
+        const headers = []
+        for (const header of results.meta['fields']) {
+          if (header.includes(':')) {
+            headers.push(header)
+          }
         }
 
-        studentResponses = new StudentQuiz(studentResponses)
-        quiz.push(studentResponses)
+        const allRows = results.data
+
+        // For each row, if a column is a student's response to a question,
+        // create a Question Response object to send to the model.
+        for (const row of allRows) {
+          // Collect all student quiz responses
+          let studentResponses = []
+
+          // Since a row is an object, we can use the headers as keys to get the
+          // student's response.
+          for (const header of headers) {
+            const quizResponse = new QuestionResponse(header, row[header])
+            studentResponses.push(quizResponse)
+          }
+
+          studentResponses = new StudentQuiz(studentResponses)
+          quiz.push(studentResponses)
+        }
+        resolve(results.data)
+      },
+      error: function(error) { //Executed after file parsing is completed
+        reject(error)
       }
-    },
-    error: function(error) { //Executed after file parsing is completed
-      console.log("Hit an error while parsing: " + error)
-    }
+    })
   })
-
-  return JSON.stringify(quiz)
 }
 
 export {
