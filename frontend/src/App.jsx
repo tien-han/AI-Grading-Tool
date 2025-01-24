@@ -5,12 +5,14 @@ import React, { useState } from "react";
 function App() {
   const [response, setResponse] = useState("");
 
+  // fetch call to our backend
   async function fetchModelResponse() {
     const res = await fetch("http://localhost:3000/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
+        // This is where we'd provide the user input files
         body: JSON.stringify({ 
           rubric: "If the student says hi then they get an A",
           studentResponses: "hi"
