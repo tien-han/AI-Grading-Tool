@@ -13,7 +13,7 @@ export default function UploadButton(props) {
     const uploadedFile = event.target.files[0];
 
     // If the file extension is CSV, update the state to hold this file
-    if (fileType === "csv" && isCsv(uploadedFile.name)) {
+    if (fileType === "csv" && await isCsv(uploadedFile)) {
       const quizData = await parseStudentQuizzes(uploadedFile); 
       console.log(quizData);
 
@@ -25,7 +25,7 @@ export default function UploadButton(props) {
     } 
     else {
       if (fileType === "csv") {
-        alert("File extension is not CSV");
+        alert("File is not CSV");
       } else {
         alert("File extension is not .txt or .tsv");
       }

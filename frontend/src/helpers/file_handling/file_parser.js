@@ -4,15 +4,36 @@ import Papa from 'papaparse'
 /**
  * Checks a file for the ".csv" extension.
  * 
- * @param {string} fileName name of the file to be checked.
+ * @param {file} file file to be checked.
  * @returns boolean: true if ".csv", false otherwise.
  */
-function isCsv(fileName) {
-  let extension = fileName.split('.').pop()
+async function isCsv(file) {
+  // Check that the file extension is CSV
+  const extension = file.name.split('.').pop()
   if (extension !== 'csv') {
     return false
   }
-  return true
+
+  // Check that the file's MIME type is csv
+  if (file.type !== 'text/csv') {
+    return false;
+  }
+
+  // Use papaparse to validate that the file contents are CSV (or similar format)
+  return await new Promise((resolve, reject) => {
+    Papa.parse(file, {
+      complete: (result) => {
+        if (result.errors.length === 0) {
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      },
+      error: (error) => {
+        reject(error);
+      }
+    })
+  })
 }
 
 /**
