@@ -38,15 +38,16 @@ function App() {
 
   return (
     <>
-      <div id="right">
-        <h1>AI Grading Tool</h1>
-        <UploadButton fileType="rubric" uploadMessage="Upload Rubric!" />
-        <UploadButton fileType="csv" uploadMessage="Upload CSV!" />
-      </div>
-      <div id="left">
-        <button id="send-msg" onClick={getGrades}>Get Grades</button>
-        <div id="response">{response}</div>
-      </div>
+    <div class="first" id="right">
+      <h1>AI Grading Tool</h1>
+      <UploadButton fileType="rubric" uploadMessage="Upload Rubric!" />
+      <UploadButton fileType="csv" uploadMessage="Upload CSV!" />
+    </div>
+    <div class="second" id="left">
+      <button id="send-msg" onClick={getGrades}>Get Grades</button>
+      <div id="response">{response}</div>
+    </div>
+      
     </>
   );
 }
