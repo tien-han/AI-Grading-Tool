@@ -3,7 +3,11 @@ import UploadButton from "./components/fileUpload.jsx";
 import { useState } from "react";
 
 function App() {
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState("Your results will show up here!");
+
+  // Manage the state of the selected files
+  const [selectedRubricData, setSelectedRubricData] = useState(null);
+  const [selectedStudentData, setSelectedStudentData] = useState(null);
 
   // fetch call to our backend
   async function fetchModelResponse() {
@@ -12,18 +16,16 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      // This is where we'd provide the user input files
       body: JSON.stringify({ 
-        rubric: "If the student says hi then they get an A",
-        studentResponses: "hi"
+        rubric: selectedRubricData,
+        studentResponses: selectedStudentData
       }),
     });
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
   
-    const data = await res.json();
-    console.log(data.result);
+    const data = await res.json(); // This is a JS object
     return data.result;
   }
   
@@ -37,18 +39,19 @@ function App() {
   };
 
   return (
-    <>
-    <div class="first" id="right">
-      <h1>AI Grading Tool</h1>
-      <UploadButton fileType="rubric" uploadMessage="Upload Rubric!" />
-      <UploadButton fileType="csv" uploadMessage="Upload CSV!" />
+    <div className="row">
+      <div className="column left" id="upload-container">
+        <h1>AI Grading Tool</h1>
+        <UploadButton fileType="rubric" uploadMessage="Upload Rubric!" setSelectedRubricData={ setSelectedRubricData }/>
+        <UploadButton fileType="csv" uploadMessage="Upload CSV!" setSelectedStudentData={ setSelectedStudentData } />
+      </div>
+      <div className="column right" id="get-grades-container">
+        <button id="send-msg" onClick={getGrades} >Get Grades</button>
+        <div id="ai-response">
+          <pre>{response}</pre>
+        </div>
+      </div>
     </div>
-    <div class="second" id="left">
-      <button id="send-msg" onClick={getGrades}>Get Grades</button>
-      <div id="response">{response}</div>
-    </div>
-      
-    </>
   );
 }
 

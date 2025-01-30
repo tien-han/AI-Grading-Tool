@@ -75,10 +75,10 @@ function parseRubric(file) {
  * @param {File} file the uploaded CSV file.
  * @returns {JSON} a JSON file that can be displayed on the front end.
  */
-function parseStudentQuizzes(file) {
+async function parseStudentQuizzes(file) {
   // Create document object/list
   let quiz = []
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
@@ -109,7 +109,7 @@ function parseStudentQuizzes(file) {
           studentResponses = new StudentQuiz(studentResponses)
           quiz.push(studentResponses)
         }
-        resolve(results.data)
+        resolve(JSON.stringify(results.data))
       },
       error: function(error) { //Executed after file parsing is completed
         reject(error)

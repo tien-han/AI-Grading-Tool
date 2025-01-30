@@ -54,18 +54,27 @@ async function promptModel(rubric, studentResponses) {
             // This is where we define the models role
             {
                 role: "system",
-                content: "You are a grading assistant for instructors. Your job is to take in a rubric and/or grading instructions and apply them to students written responses to questions. You'll need to grade the responses accordingly and provide reasoning for each students grade.",
+                content: `You are a grading assistant for instructors. Your job is to take in a
+                    rubric and/or grading instructions and apply them to students written
+                    responses to questions. You'll need to grade the responses accordingly and
+                    provide reasoning for each students grade.`,
             },
             // This is the user, this is where we provide the prompt
             {
                 role: "user",
-                content: `Here are is the rubric: ${rubric}, Here are the questions and the students responses: ${studentResponses}`,
+                content: `Here is the grading rubric: ${rubric}. Here are the questions and the
+                    students responses: ${studentResponses}. Each student's responses are enclosed
+                    in curly braces {}. Each item in the curly braces holds both the question being asked
+                    (usually starting with a 9 digit value with a colon and a question prompt), and
+                    the students response to that particular question following right after.
+                    Your response must only generate a valid JSON object that must be formatted
+                    for an API backend recipient. Do not use markdown in this response.`,
             },
         ],
         // Where we select the model
         model: "llama-3.3-70b-versatile",
         // Number of words the model can return
-        max_completion_tokens: 100,
+        max_completion_tokens: 500,
         // Basically the randomness of the model
         // High temp = more random
         temperature: 0.2
